@@ -7,6 +7,7 @@ package com.eomcs.basic.ex03;
 public class Exam0410 {
 
     public static void main(String[] args) {
+      
         System.out.println(0x41);
         System.out.println(65);
         
@@ -16,6 +17,8 @@ public class Exam0410 {
         System.out.println((char)0xd5d0);
         
         System.out.println('A'); // 'A' => (char)0x0041
+        System.out.println((char)'A');
+        
         
         
         // single quatation 연산자 ''의 역할은

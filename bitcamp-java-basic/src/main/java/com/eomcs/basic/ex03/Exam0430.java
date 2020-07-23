@@ -18,7 +18,7 @@ public class Exam0430 {
         System.out.println("----------------");
         
         for (int i = 'A'; i <= 'z'; i++)
-          System.out.println((char)i);
+          System.out.println(i);
         
         
         
