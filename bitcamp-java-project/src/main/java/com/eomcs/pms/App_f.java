@@ -25,7 +25,7 @@ public class App_f {
     
     // 최대 5명의 회원 정보를 입력 받는 변수 선언
     
-    int[] no = new int[5];
+    int[] no = new int[MAX_LENGTH];
     int count = 0;
     final int MAX_LENGTH = 5; // final로 변경하지 못하게하면서 상수변수를 대문자로 작성하여 식별가능하게
     
