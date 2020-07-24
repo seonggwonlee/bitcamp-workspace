@@ -30,7 +30,7 @@ import java.sql.Date;
 // - 번호, 이름, 이메일 등 각각의 데이터를 낱개로 다루는 것보다
 // - 하나의 데이터로 묶어서 다루면 값을 다루기가 편하다.
 
-public class App {
+public class App_h {
   
   static class Member {
     int no;
