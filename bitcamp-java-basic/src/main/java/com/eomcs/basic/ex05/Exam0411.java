@@ -12,9 +12,9 @@ public class Exam0411 {
     int a = -0x7f_ff_ff_fa; // -21_4748_3642
     System.out.println(a);
     System.out.println(a << 1); // 1|0000 0000 0000 0000 0000 0000 0000 1100 = 12
-    System.out.println(a << 2);
-    System.out.println(a << 3);
-    System.out.println(a << 4);
+    System.out.println(a << 2); // 24
+    System.out.println(a << 3); // 48
+    System.out.println(a << 4); // 96
 
     // 결론!
     // 왼쪽으로 x 만큼 비트를 이동시키는 것은 주어진 양수 대해 2**x 로 곱한 것과 같다.

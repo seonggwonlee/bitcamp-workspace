@@ -4,11 +4,12 @@ package com.eomcs.basic.ex05;
 //
 public class Exam0510 {
   public static void main(String[] args) {
-    // 조건연산자
+    // 조건연산자(삼한? 연산자)
     // => 조건 ? 표현식1 : 표현식2
+    // 표현식 : 결과를 만들어내는 문법이 와야한다.
     // => 조건이 참이면 표현식1을 실행하고,
     //    조건이 거짓이면 표현식2를 실행한다.
-    int age = 20;
+    int age = 12;
     
     /* 
     (age > 18) ? System.out.println("성인이다.") : 

@@ -7,6 +7,7 @@ public class Exam0631 {
     int i = 7;
     
     i = i++;
+    
     // 위 문장은 다음과 같이 실행된다.  
     //int temp = i;
     //i = i + 1;
@@ -24,6 +25,6 @@ public class Exam0631 {
     //    => 다시 i는 8에서 7로 바뀌었다.
 
     System.out.println(i);
-
+ 
   }
 }

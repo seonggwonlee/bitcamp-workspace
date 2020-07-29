@@ -33,12 +33,18 @@ public class Exam0410 {
     System.out.println(i << 2); // 001011xx => 00101100 => 44
     System.out.println(i << 3); // 01011xxx => 01011000 => 88
 
+    String s1 = "abc";
+    String s2 = "가나다";
+    String s3 = "a가b";
+    System.out.println(s1.length());
+    System.out.println(s2.length());
+    System.out.println(s3.length());
     // 왼쪽 이동
     // - 1비트 이동은 곱하기 2 한 것과 같은 효과를 준다.
     // - 값을 배수로 증가시킬 때 곱하기 연산을 하는 것 보다
     //   왼쪽 비트 이동 연산을 하는 것이 빠르기 때문에
     //   실무에서는 이 비트 이동 연산을 자주 사용한다.
-    //
+    // - 비트 이동 => '2**이동비트'를 곱한 것과 같은 결과이다.
   }
 }
 
