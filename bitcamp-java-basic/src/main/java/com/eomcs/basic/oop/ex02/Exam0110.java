@@ -1,7 +1,5 @@
-package com.eomcs.basic.oop.ex01;
+package com.eomcs.basic.oop.ex02;
 
-// # 클래스 사용 : 1) 일반 변수 사용
-//
 public class Exam0110 {
 
 
