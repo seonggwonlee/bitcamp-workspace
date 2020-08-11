@@ -18,6 +18,9 @@ public class Exam0413 {
 
     printCar(s1);
     printCar(t1);
-
   }
+
+  // 하나의 메서드로 Sedan과 Truck을 모두 출력할 수 있다.
+  // Sedan과 Truck의 수퍼 클래스인 Car 클래스를 이용한다.
+  // 즉 위와 같이 다형적 변수 이용한다.
 }
