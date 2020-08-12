@@ -1,0 +1,17 @@
+package com.eomcs.oop.ex06_1.c;
+
+public class Exam0140 {
+  public static void main(String[] args) {
+    A4 obj1 = new A4();
+
+    obj1.name = "홍길동";
+    obj1.age = "20";
+
+    obj1.print();
+    obj1.print3();
+    System.out.println("---------");
+
+    obj1.test();
+
+  }
+}
