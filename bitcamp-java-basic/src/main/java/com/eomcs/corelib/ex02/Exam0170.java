@@ -9,6 +9,7 @@ public class Exam0170 {
     System.out.println(s1);
 
     // 기본 데이터 타입의 값을 문자열로 만들기
+    // 오버로드
     String s2 = String.valueOf(true); // true => "true"
     String s3 = String.valueOf(100); // 100 => "100"
     String s4 = String.valueOf(100L); // 100L => "100"

@@ -12,6 +12,8 @@ public class Exam0120 {
 
     // 두 인스턴스가 갖고 있는 문자열이 같은지를 비교하고 싶다면,
     System.out.println(s1.equals(s2));
+    // String 클래스를 만든 개발자가 equals를 오버라이딩하였기 때문에
+    // 원래는 인스턴스를 비교하는 거지만 오버라이딩하여 내용물을 비교하는 걸로 바뀌었다.
 
     // equals()?
     // - Object에 정의되어 있는 메서드이다.

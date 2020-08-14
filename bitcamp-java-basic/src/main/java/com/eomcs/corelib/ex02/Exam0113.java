@@ -4,7 +4,7 @@ package com.eomcs.corelib.ex02;
 public class Exam0113 {
   public static void main(String[] args) {
 
-    String s1 = new String("Hello");
+    String s1 = new String("Hello"); // Heap에 생성
 
     // intern()
     // - 지정된 String 객체를 상수풀에서 찾는다.
