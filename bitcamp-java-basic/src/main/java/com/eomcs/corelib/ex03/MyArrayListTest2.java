@@ -26,10 +26,20 @@ public class MyArrayListTest2 {
     MyArrayList.add("hhh"); // aaa bbb ccc ddd eee fff ggg hhh
     print();
 
-    MyArrayList.add(8, "iii"); // aaa bbb ccc ddd eee fff ggg
+    MyArrayList.add(8, "iii"); // aaa bbb ccc ddd eee fff ggg hhh iii
     print();
 
+
+    Object old = MyArrayList.remove(5);
+    print();
+    System.out.println(old);
+
+    MyArrayList.set(7, "xxx");
+    print();
+
+    System.out.println(MyArrayList.get(8));
   }
+
   static void print() {
     for (int i = 0; i < MyArrayList.size; i++) {
       String str = (String)MyArrayList.get(i);
