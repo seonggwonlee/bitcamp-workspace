@@ -28,7 +28,7 @@ public class Exam0331 {
     table.remove("s03");
 
     while (iterator.hasNext()) {
-      System.out.println(iterator.next());
+      System.out.println(iterator.next()); // Hashmap과 table의 동작방식은 같다.
     }
   }
 
