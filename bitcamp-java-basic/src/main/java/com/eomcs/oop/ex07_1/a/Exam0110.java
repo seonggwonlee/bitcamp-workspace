@@ -1,4 +1,4 @@
-package com.eomcs.oop.ex07_1.a;
+package oop.ex07_1.a;
 
 public class Exam0110 {
 
