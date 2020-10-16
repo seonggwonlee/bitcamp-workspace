@@ -1,4 +1,4 @@
-package Exception.ex03;
+package com.eomcs.Exception.ex03;
 
 import java.io.FileNotFoundException;
 
@@ -6,7 +6,7 @@ public class Exam0210 {
 	static void m1() throws Throwable {
 		throw new Throwable();
 	}
-	
+
 	static void m2() throws FileNotFoundException, RuntimeException {
 		int a = 100;
 		if (a < 0) {
@@ -15,6 +15,6 @@ public class Exam0210 {
 			throw new RuntimeException();
 		}
 	}
-	
+
 	public static void main(String[] args) {}
 }

@@ -18,8 +18,8 @@ import com.eomcs.pms.listener.RequestMappingListener;
 
 public class ServerApp {
 
-  // 클라이언트가 "stop"명령을 하면 이 값이 true로 변경됨
-  // 이 값이 true이면 다음 클라이언트가 접속시 서버를 종료한다.
+  // 클라이언트가 "stop" 명령을 보내면 이 값이 true로 변경된다.
+  // - 이 값이 true 이면 다음 클라이언트 접속할 때 서버를 종료한다.
   static boolean stop = false;
 
   // 옵저버와 공유할 맵 객체
@@ -61,12 +61,11 @@ public class ServerApp {
 
       while (true) {
         Socket clientSocket = serverSocket.accept();
-        // 람다 문법 사용
 
         if (stop) {
           break;
         }
-
+        // 람다 문법 사용
         new Thread(() -> handleClient(clientSocket)).start();
       }
 
@@ -80,6 +79,7 @@ public class ServerApp {
   public static void main(String[] args) {
     ServerApp server = new ServerApp();
 
+    // 리스너(옵저버/구독자) 등록
     server.addApplicationContextListener(new AppInitListener());
     server.addApplicationContextListener(new DataHandlerListener());
     server.addApplicationContextListener(new RequestMappingListener());
@@ -96,34 +96,32 @@ public class ServerApp {
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintWriter out = new PrintWriter(socket.getOutputStream())) {
 
-      while (true) {
+      // 클라이언트가 보낸 요청을 읽는다.
         String request = in.readLine();
+
+        if (request.equalsIgnoreCase("stop")) {
+          stop = true; // 서버의 상태를 멈추라는 의미로 true로 설정한다.
+          out.println("서버를 종료합니다.");
+          out.println("");
+          out.flush();
+          return;
+        }
 
         Command command = (Command) context.get(request);
         if (command != null) {
-          command.execute();
+          command.execute(out, in);
         } else {
-        sendResponse(out, "해당 명령을 찾을 수 없습니다.");
+          out.println("해당 명령을 처리할 수 없습니다!");
         }
 
-        if (request.equalsIgnoreCase("quit"))
-          break;
-        else if (request.equalsIgnoreCase("stop")) {
-          stop = true; // 서버의 상태를 멈추라는 의미의 True로 설정한다
-          break;
-        }
-      }
+        out.println();
+        out.flush();
 
     } catch (Exception e) {
       System.out.println("클라이언트와의 통신 오류!");
     }
+
     System.out.printf("클라이언트(%s)와의 연결을 끊었습니다.\n",
         address.getHostAddress());
-  }
-
-  private static void sendResponse(PrintWriter out, String message) {
-    out.println(message);
-    out.println(); // 응답이 끝났음을 알리는 빈 줄을 보낸다.
-    out.flush();
   }
 }
