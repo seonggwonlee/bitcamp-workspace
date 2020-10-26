@@ -3,45 +3,114 @@
  */
 package com.eomcs.pms;
 
+//1) 낱개의 변수를 사용하여 여러 회원 정보 처리하기
+//2) 조건문을 사용하여 입출력 제어하기
+//- 필요한 만큼만 입력 받고 출력하고 싶다.
+
 import java.sql.Date;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
+      Scanner in = new Scanner(System.in);
+
+      int no1 = 0, no2 = 0, no3 = 0;
+      String name1 = "", name2 = "", name3 = "";
+      String email1 = "" , email2= "", email3 = "";
+      String password1 = "", password2 = "", password3 = "";
+      String picture1 = "", picture2 = "", picture3 = "";
+      String tel1 = "", tel2 = "", tel3 = "";
+      Date registeredDate1 = null, registeredDate2 = null, registeredDate3 = null;
+      registeredDate1 = new Date(System.currentTimeMillis());
+      registeredDate2 = new Date(System.currentTimeMillis());
+      registeredDate3 = new Date(System.currentTimeMillis());
+
+      int size = 0;
 
       System.out.println("[회원]");
 
-      Scanner in = new Scanner(System.in);
-      Date date = new Date(System.currentTimeMillis());
-
-
         System.out.print("번호? ");
-        String no = in.nextLine();
+        no1 = Integer.parseInt(in.nextLine());
 
         System.out.print("이름? ");
-        String name = in.nextLine();
+        name1 = in.nextLine();
 
         System.out.print("이메일? ");
-        String email = in.nextLine();
+        email1 = in.nextLine();
 
         System.out.print("암호? ");
-        String password = in.nextLine();
+        password1 = in.nextLine();
 
         System.out.print("사진? ");
-        String picture = in.nextLine();
+        picture1 = in.nextLine();
 
         System.out.print("전화? ");
-        String tel = in.nextLine();
+        tel1 = in.nextLine();
+        size++;
+
+        System.out.print("계속 입력하시겠습니까?(Y/n)");
+        String answer = in.nextLine();
+
+        System.out.println("");
+
+
+        if (answer.equalsIgnoreCase("y")) {
+
+        System.out.print("번호? ");
+        no2 = Integer.parseInt(in.nextLine());
+
+        System.out.print("이름? ");
+        name2 = in.nextLine();
+
+        System.out.print("이메일? ");
+        email2 = in.nextLine();
+
+        System.out.print("암호? ");
+        password2 = in.nextLine();
+
+        System.out.print("사진? ");
+        picture2 = in.nextLine();
+
+        System.out.print("전화? ");
+        tel2 = in.nextLine();
+        size++;
+
+        System.out.print("계속 입력하시겠습니까?(Y/n)");
+        answer = in.nextLine();
+
+          if (answer.equalsIgnoreCase("y")) {
+
+        System.out.println("");
+
+        System.out.print("번호? ");
+        no3 = Integer.parseInt(in.nextLine());
+
+        System.out.print("이름? ");
+        name3 = in.nextLine();
+
+        System.out.print("이메일? ");
+        email3 = in.nextLine();
+
+        System.out.print("암호? ");
+        password3 = in.nextLine();
+
+        System.out.print("사진? ");
+        picture3 = in.nextLine();
+
+        System.out.print("전화? ");
+        tel3 = in.nextLine();
+        size++;
+        System.out.println("");
 
         in.close();
-
-        System.out.println("--------------------");
-        System.out.println("번호 : " + no);
-        System.out.println("이름 : " + name);
-        System.out.println("이메일 : " + email);
-        System.out.printf("암호 : %s\n ", password);
-        System.out.printf("사진 : %s\n ", picture);
-        System.out.printf("전화 : %s\n", tel);
-        System.out.printf("가입일 : %s\n ", date);
+          }
+        }
+            System.out.println("--------------------");
+            System.out.printf("%d, %s, %s, %s, %s, %s, %s\n", no1, name1, email1, password1, picture1, tel1, registeredDate1);
+             if (size >= 2) {
+            System.out.printf("%d, %s, %s, %s, %s, %s, %s\n", no2, name2, email2, password2, picture2, tel2, registeredDate2);
+            } else if (size >= 3) {
+            System.out.printf("%d, %s, %s, %s, %s, %s, %s\n", no3, name3, email3, password3, picture3, tel3, registeredDate3);
+            }
+        }
     }
-}
