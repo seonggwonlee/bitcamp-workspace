@@ -11,106 +11,61 @@ import java.sql.Date;
 import java.util.Scanner;
 
 public class App {
-    public static void main(String[] args) {
-      Scanner in = new Scanner(System.in);
+  static Scanner in = new Scanner(System.in);
 
-      int no1 = 0, no2 = 0, no3 = 0;
-      String name1 = "", name2 = "", name3 = "";
-      String email1 = "" , email2= "", email3 = "";
-      String password1 = "", password2 = "", password3 = "";
-      String picture1 = "", picture2 = "", picture3 = "";
-      String tel1 = "", tel2 = "", tel3 = "";
-      Date registeredDate1 = null, registeredDate2 = null, registeredDate3 = null;
-      registeredDate1 = new Date(System.currentTimeMillis());
-      registeredDate2 = new Date(System.currentTimeMillis());
-      registeredDate3 = new Date(System.currentTimeMillis());
+  static final int LENGTH = 5;
 
-      int size = 0;
+  static int[] no = new int[LENGTH];
+  static String[] name = new String[LENGTH];
+  static String[] email = new String[LENGTH];
+  static String[] password = new String[LENGTH];
+  static String[] picture = new String[LENGTH];
+  static String[] tel = new String[LENGTH];
+  static Date registeredDate = new Date(System.currentTimeMillis());
 
-      System.out.println("[회원]");
+  static int size = 0;
+
+  static void inputMembers() {
+      for (int i = 0; i < 5; i++) {
+      System.out.println("[회원]" );
 
         System.out.print("번호? ");
-        no1 = Integer.parseInt(in.nextLine());
+        no[i] = Integer.parseInt(in.nextLine());
 
         System.out.print("이름? ");
-        name1 = in.nextLine();
+        name[i] = in.nextLine();
 
         System.out.print("이메일? ");
-        email1 = in.nextLine();
+        email[i] = in.nextLine();
 
         System.out.print("암호? ");
-        password1 = in.nextLine();
+        password[i] = in.nextLine();
 
         System.out.print("사진? ");
-        picture1 = in.nextLine();
+        picture[i] = in.nextLine();
 
         System.out.print("전화? ");
-        tel1 = in.nextLine();
+        tel[i] = in.nextLine();
+
         size++;
 
         System.out.print("계속 입력하시겠습니까?(Y/n)");
         String answer = in.nextLine();
-
-        System.out.println("");
-
-
-        if (answer.equalsIgnoreCase("y")) {
-
-        System.out.print("번호? ");
-        no2 = Integer.parseInt(in.nextLine());
-
-        System.out.print("이름? ");
-        name2 = in.nextLine();
-
-        System.out.print("이메일? ");
-        email2 = in.nextLine();
-
-        System.out.print("암호? ");
-        password2 = in.nextLine();
-
-        System.out.print("사진? ");
-        picture2 = in.nextLine();
-
-        System.out.print("전화? ");
-        tel2 = in.nextLine();
-        size++;
-
-        System.out.print("계속 입력하시겠습니까?(Y/n)");
-        answer = in.nextLine();
-
-          if (answer.equalsIgnoreCase("y")) {
-
-        System.out.println("");
-
-        System.out.print("번호? ");
-        no3 = Integer.parseInt(in.nextLine());
-
-        System.out.print("이름? ");
-        name3 = in.nextLine();
-
-        System.out.print("이메일? ");
-        email3 = in.nextLine();
-
-        System.out.print("암호? ");
-        password3 = in.nextLine();
-
-        System.out.print("사진? ");
-        picture3 = in.nextLine();
-
-        System.out.print("전화? ");
-        tel3 = in.nextLine();
-        size++;
-        System.out.println("");
-
-        in.close();
-          }
+        if (!answer.equalsIgnoreCase("y")) {
+          break;
         }
-            System.out.println("--------------------");
-            System.out.printf("%d, %s, %s, %s, %s, %s, %s\n", no1, name1, email1, password1, picture1, tel1, registeredDate1);
-             if (size >= 2) {
-            System.out.printf("%d, %s, %s, %s, %s, %s, %s\n", no2, name2, email2, password2, picture2, tel2, registeredDate2);
-            } else if (size >= 3) {
-            System.out.printf("%d, %s, %s, %s, %s, %s, %s\n", no3, name3, email3, password3, picture3, tel3, registeredDate3);
-            }
-        }
+      }
+  }
+    static void printMembers() {
+      for (int i = 0; i < size; i++) {
+        System.out.printf("%d, %s, %s, %s, %s, %s, %s\n", no[i], name[i], email[i], password[i],
+            picture[i], tel[i], registeredDate);
+   }
     }
+    public static void main(String[] args) {
+      inputMembers();
+      System.out.println("--------------------");
+      in.close();
+      printMembers();
+    }
+}

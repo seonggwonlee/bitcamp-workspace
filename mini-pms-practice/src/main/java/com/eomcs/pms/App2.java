@@ -5,42 +5,57 @@ import java.util.Scanner;
 
 public class App2 {
   public static void main(String[] args) {
-    System.out.println("[프로젝트]");
-
     Scanner in = new Scanner(System.in);
 
+    int[] no = new int[5];
+    String[] title = new String[5];
+    String[] content = new String[5];
+    Date[] startDate = new Date[5];
+    Date[] endDate = new Date[5];
+    String[] creator = new String[5];
+    String[] member = new String[5];
+
+    System.out.println("[프로젝트]");
+
+    int count = 0;
+
+    for (int i = 0; i < 3; i++) {
+
     System.out.print("번호 ? ");
-    int no = in.nextInt();
-    in.nextLine();
+    no[i] = Integer.parseInt(in.nextLine());
 
     System.out.print("프로젝트명? ");
-    String title = in.nextLine();
+    title[i] = in.nextLine();
 
     System.out.print("내용 ? ");
-    String content = in.nextLine();
+    content[i] = in.nextLine();
 
     System.out.print("시작일 ? ");
-    Date startDate = Date.valueOf(in.nextLine());
+    startDate[i] = Date.valueOf(in.nextLine());
 
     System.out.print("종료일 ? ");
-    Date endDate = Date.valueOf(in.nextLine());
+    endDate[i] = Date.valueOf(in.nextLine());
 
     System.out.print("만든이 ? ");
-    String creator = in.nextLine();
+    creator[i] = in.nextLine();
 
     System.out.print("팀원 ? ");
-    String member = in.nextLine();
+    member[i] = in.nextLine();
 
+    count++;
+    System.out.println("계속 입력하시겠습니까?(Y/n)");
+    String answer = in.nextLine();
+    if (!answer.equalsIgnoreCase("y")) {
+      break;
+      }
+    }
     in.close();
 
     System.out.println("----------------");
 
-    System.out.printf("번호 : %d\n", no);
-    System.out.printf("프로젝트명 : %s\n", title);
-    System.out.printf("내용 : %s\n", content);
-    System.out.printf("시작일 : %s\n", startDate);
-    System.out.printf("종료일 : %s\n", endDate);
-    System.out.printf("만든이 : %s\n", creator);
-    System.out.printf("팀원 : %s\n", member);
+    for (int i = 0; i < count; i++) {
+    System.out.printf("%d, %s, %s, %s, %s, %s, %s\n", no[i], title[i], content[i], startDate[i],
+        endDate[i], creator[i], member[i]);
+    }
   }
 }
