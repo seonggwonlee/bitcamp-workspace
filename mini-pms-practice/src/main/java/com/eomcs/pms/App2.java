@@ -7,13 +7,15 @@ public class App2 {
   public static void main(String[] args) {
     Scanner in = new Scanner(System.in);
 
-    int[] no = new int[5];
-    String[] title = new String[5];
-    String[] content = new String[5];
-    Date[] startDate = new Date[5];
-    Date[] endDate = new Date[5];
-    String[] creator = new String[5];
-    String[] member = new String[5];
+    final int LENGTH = 5;
+
+    int[] no = new int[LENGTH];
+    String[] title = new String[LENGTH];
+    String[] content = new String[LENGTH];
+    Date[] startDate = new Date[LENGTH];
+    Date[] endDate = new Date[LENGTH];
+    String[] creator = new String[LENGTH];
+    String[] member = new String[LENGTH];
 
     System.out.println("[프로젝트]");
 
