@@ -5,18 +5,12 @@ package com.eomcs.jdbc.ex1;
 
 import java.sql.DriverManager;
 
-public class Exam0110 {
+public class Exam0130 {
   public static void main(String[] args) {
     try {
-      java.sql.Driver mariadbDriver = new org.mariadb.jdbc.Driver();//java.sql 구현체 생성
-      java.sql.Driver oracleDriver = new oracle.jdbc.driver.OracleDriver();
-      java.sql.Driver msSqlDriver = new com.microsoft.sqlserver.jdbc.SQLServerDriver();
-
-      DriverManager.registerDriver(mariadbDriver);
-      DriverManager.registerDriver(oracleDriver);
-      DriverManager.registerDriver(msSqlDriver);
-
-      System.out.println("드라이버 등록 완료");
+      Class.forName("org.mariadb.jdbc.Driver");//java.sql 구현체 생성
+      Class.forName("oracle.jdbc.driver.OracleDriver");
+      Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
       java.sql.Driver driver1 = DriverManager.getDriver("jdbc:mariadb://");
       System.out.println(driver1);

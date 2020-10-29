@@ -4,60 +4,73 @@ import java.sql.Date;
 import java.util.Scanner;
 
 public class App2 {
-  public static void main(String[] args) {
-    Scanner in = new Scanner(System.in);
+  static Scanner in = new Scanner(System.in);
 
-    final int LENGTH = 5;
+  static class Project {
+    int no;
+    String title;
+    String content;
+    Date startDate;
+    Date endDate;
+    String creator;
+    String member;
+  }
 
-    int[] no = new int[LENGTH];
-    String[] title = new String[LENGTH];
-    String[] content = new String[LENGTH];
-    Date[] startDate = new Date[LENGTH];
-    Date[] endDate = new Date[LENGTH];
-    String[] creator = new String[LENGTH];
-    String[] member = new String[LENGTH];
+  static final int LENGTH = 5;
+  static int count = 0;
+  static Project[] projects = new Project[LENGTH];
 
-    System.out.println("[프로젝트]");
+  static void inputProjects() {
 
-    int count = 0;
+    for (int i = 0; i < 5; i++) {
 
-    for (int i = 0; i < 3; i++) {
+    Project project = new Project();
 
     System.out.print("번호 ? ");
-    no[i] = Integer.parseInt(in.nextLine());
+    project.no = Integer.parseInt(in.nextLine());
 
     System.out.print("프로젝트명? ");
-    title[i] = in.nextLine();
+    project.title = in.nextLine();
 
     System.out.print("내용 ? ");
-    content[i] = in.nextLine();
+    project.content = in.nextLine();
 
     System.out.print("시작일 ? ");
-    startDate[i] = Date.valueOf(in.nextLine());
+    project.startDate = Date.valueOf(in.nextLine());
 
     System.out.print("종료일 ? ");
-    endDate[i] = Date.valueOf(in.nextLine());
+    project.endDate = Date.valueOf(in.nextLine());
 
     System.out.print("만든이 ? ");
-    creator[i] = in.nextLine();
+    project.creator = in.nextLine();
 
     System.out.print("팀원 ? ");
-    member[i] = in.nextLine();
+    project.member = in.nextLine();
 
-    count++;
+    projects[count++] = project;
     System.out.println("계속 입력하시겠습니까?(Y/n)");
     String answer = in.nextLine();
     if (!answer.equalsIgnoreCase("y")) {
       break;
       }
     }
-    in.close();
+  }
+  public static void main(String[] args) {
+    System.out.println("[프로젝트]");
+
+    inputProjects();
 
     System.out.println("----------------");
 
+    printProjects();
+
+  }
+
+  static void printProjects() {
     for (int i = 0; i < count; i++) {
-    System.out.printf("%d, %s, %s, %s, %s, %s, %s\n", no[i], title[i], content[i], startDate[i],
-        endDate[i], creator[i], member[i]);
+      Project p = projects[i];
+    System.out.printf("%d, %s, %s, %s, %s, %s, %s\n", p.no, p.title, p.content, p.startDate,
+        p.endDate, p.creator, p.member);
     }
   }
 }

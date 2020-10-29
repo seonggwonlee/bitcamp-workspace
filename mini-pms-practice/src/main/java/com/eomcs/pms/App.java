@@ -3,69 +3,98 @@
  */
 package com.eomcs.pms;
 
-//1) 낱개의 변수를 사용하여 여러 회원 정보 처리하기
-//2) 조건문을 사용하여 입출력 제어하기
-//- 필요한 만큼만 입력 받고 출력하고 싶다.
-
-import java.sql.Date;
 import java.util.Scanner;
 
 public class App {
-  static Scanner in = new Scanner(System.in);
 
-  static final int LENGTH = 5;
+//  static class Member {
+//    int no;
+//    String name;
+//    String email;
+//    String password;
+//    String picture;
+//    String tel;
+//    Date registeredDate = new Date(System.currentTimeMillis());
+//  }
+//
+//  static final int LENGTH = 5;
+//  static int size = 0;
+//  static Member[] members = new Member[LENGTH];
+//
+  public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
 
-  static int[] no = new int[LENGTH];
-  static String[] name = new String[LENGTH];
-  static String[] email = new String[LENGTH];
-  static String[] password = new String[LENGTH];
-  static String[] picture = new String[LENGTH];
-  static String[] tel = new String[LENGTH];
-  static Date registeredDate = new Date(System.currentTimeMillis());
+    loop:
+    while (true) {
+      System.out.print("명령> ");
+      String input = in.nextLine();
 
-  static int size = 0;
-
-  static void inputMembers() {
-      for (int i = 0; i < 5; i++) {
-      System.out.println("[회원]" );
-
-        System.out.print("번호? ");
-        no[i] = Integer.parseInt(in.nextLine());
-
-        System.out.print("이름? ");
-        name[i] = in.nextLine();
-
-        System.out.print("이메일? ");
-        email[i] = in.nextLine();
-
-        System.out.print("암호? ");
-        password[i] = in.nextLine();
-
-        System.out.print("사진? ");
-        picture[i] = in.nextLine();
-
-        System.out.print("전화? ");
-        tel[i] = in.nextLine();
-
-        size++;
-
-        System.out.print("계속 입력하시겠습니까?(Y/n)");
-        String answer = in.nextLine();
-        if (!answer.equalsIgnoreCase("y")) {
+      switch (input) {
+        case "/member/add" :
+          System.out.println("[회원 등록]");
           break;
+        case "/member/list" :
+          System.out.println("[회원 목록]");
+          break;
+        case "exit" :
+        case "quit" :
+          System.out.println("입력을 종료합니다.");
+          break loop;
+        default :
+          System.out.println("실행할 수 없는 명령입니다.");
         }
-      }
+    }
+    in.close();
   }
-    static void printMembers() {
-      for (int i = 0; i < size; i++) {
-        System.out.printf("%d, %s, %s, %s, %s, %s, %s\n", no[i], name[i], email[i], password[i],
-            picture[i], tel[i], registeredDate);
-   }
-    }
-    public static void main(String[] args) {
-      inputMembers();
-      System.out.println("--------------------");
-      in.close();
-      printMembers();
-    }
 }
+//    System.out.println("[회원]" );
+//    inputMembers();
+//    System.out.println("--------------------");
+//    printMembers();
+//  }
+//
+//  static void inputMembers() {
+
+//
+//      for (int i = 0; i < LENGTH; i++) {
+//
+//          Member member = new Member();
+//
+//          System.out.print("번호? ");
+//          member.no = Integer.parseInt(in.nextLine());
+//
+//          System.out.print("이름? ");
+//          member.name = in.nextLine();
+//
+//          System.out.print("이메일? ");
+//          member.email = in.nextLine();
+//
+//          System.out.print("암호? ");
+//          member.password = in.nextLine();
+//
+//          System.out.print("사진? ");
+//          member.picture = in.nextLine();
+//
+//          System.out.print("전화? ");
+//          member.tel = in.nextLine();
+//
+//          member.registeredDate = new Date(System.currentTimeMillis());
+//
+//          members[size++] = member;
+//
+//          System.out.print("계속 입력하시겠습니까?(Y/n)");
+//          String answer = in.nextLine();
+//          if (!answer.equalsIgnoreCase("y")) {
+//            break;
+//          }
+//          System.out.println("빈줄 출력");
+//        }
+//      in.close();
+//  }
+//    static void printMembers() {
+//      for (int i = 0; i < size; i++) {
+//        Member m = members[i];
+//        System.out.printf("%d, %s, %s, %s, %s, %s, %s\n", m.no, m.name, m.email, m.password,
+//            m.picture, m.tel, m.registeredDate);
+//      }
+//    }

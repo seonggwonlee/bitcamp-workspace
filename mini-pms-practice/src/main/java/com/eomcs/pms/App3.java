@@ -4,44 +4,49 @@ import java.sql.Date;
 import java.util.Scanner;
 
 public class App3 {
-  public static void main(String[] args) {
 
-    int[] no = new int[5];
-    String[] projectName = new String[5];
-    String[] content = new String[5];
-    Date[] deadLine = new Date[5];
-    int[] status = new int[5];
-    String[] manager = new String[5];
+  static class Task {
+    int no;
+    String title;
+    String content;
+    Date deadLine;
+    int status;
+    String manager;
+  }
 
-    System.out.println("[작업]");
+  static final int LENGTH = 5;
+  static int count = 0;
+  static Task[] tasks = new Task[LENGTH];
 
-    Scanner in = new Scanner(System.in);
+  static void inputTasks() {
+   Scanner in = new Scanner(System.in);
 
-    int count = 0;
 
     for (int i = 0; i < 5; i++) {
+      Task task = new Task();
+
       System.out.print("프로젝트?");
-        projectName[i] = in.nextLine();
+        task.title = in.nextLine();
 
       System.out.print("번호?");
-        no[i] = Integer.parseInt(in.nextLine());
+        task.no = Integer.parseInt(in.nextLine());
 
       System.out.print("내용?");
-        content[i] = in.nextLine();
+        task.content = in.nextLine();
 
       System.out.print("완료일?");
-        deadLine[i] = Date.valueOf(in.nextLine());
+        task.deadLine = Date.valueOf(in.nextLine());
 
       System.out.println("상태?");
       System.out.println("0: 신규");
       System.out.println("1: 진행중");
       System.out.println("2: 완료");
-        status[i] = Integer.parseInt(in.nextLine());
+        task.status = Integer.parseInt(in.nextLine());
 
       System.out.printf("담당자?");
-        manager[i] = in.nextLine();
+        task.manager = in.nextLine();
 
-        count++;
+        tasks[count++] = task;
 
         System.out.println("계속 하시겠습니까?(Y/n)");
         String answer = in.nextLine();
@@ -49,20 +54,34 @@ public class App3 {
           break;
         }
     }
+  }
 
+  public static void main(String[] args) {
+    System.out.println("[작업]");
+
+    inputTasks();
 
     System.out.println("---------------");
+
+    printTasks();
+  }
+
+  static void printTasks() {
     String statusValue = null;
     for (int i = 0; i < count; i++) {
-      if (status[i] == 0) {
-        statusValue = "신규";
-      } if (status[i] == 1) {
-        statusValue = "진행중";
-      } if (status[i] == 2) {
-        statusValue = "완료";
+      Task t = tasks[i];
+      switch (t.status) {
+        case 1:
+          statusValue = "진행중";
+          break;
+        case 2:
+          statusValue = "완료";
+          break;
+        default:
+          statusValue = "신규";
       }
-    System.out.printf("%s, %d, %s, %s, %s, %s\n", projectName[i], no[i],
-        content[i], deadLine[i], statusValue, manager[i]);
+    System.out.printf("%s, %d, %s, %s, %s, %s\n", t.title, t.no,
+        t.content, t.deadLine, statusValue, t.manager);
     }
   }
 }
