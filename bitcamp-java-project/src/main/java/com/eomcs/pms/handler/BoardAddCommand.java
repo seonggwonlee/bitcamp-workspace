@@ -1,33 +1,54 @@
 package com.eomcs.pms.handler;
 
-import java.sql.Date;
-import java.util.List;
+import com.eomcs.pms.dao.BoardDao;
+import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.domain.Board;
+import com.eomcs.pms.domain.Member;
 import com.eomcs.util.Prompt;
 
-// Command 규칙에 따라 클래스를 정의한다. 
 public class BoardAddCommand implements Command {
 
-  List<Board> boardList;
+  BoardDao boardDao;
+  MemberDao memberDao;
 
-  public BoardAddCommand(List<Board> list) {
-    this.boardList = list;
+  public BoardAddCommand(BoardDao boardDao, MemberDao memberDao) {
+    this.boardDao = boardDao;
+    this.memberDao = memberDao;
   }
 
   @Override
   public void execute() {
     System.out.println("[게시물 등록]");
 
-    Board board = new Board();
-    board.setNo(Prompt.inputInt("번호? "));
-    board.setTitle(Prompt.inputString("제목? "));
-    board.setContent(Prompt.inputString("내용? "));
-    board.setWriter(Prompt.inputString("작성자? "));
-    board.setRegisteredDate(new Date(System.currentTimeMillis()));
-    board.setViewCount(0);
+    try {
+      Board board = new Board();
+      board.setTitle(Prompt.inputString("제목? "));
+      board.setContent(Prompt.inputString("내용? "));
 
-    boardList.add(board);
+      while (true) {
+        String name = Prompt.inputString("작성자?(취소: 빈 문자열) ");
 
-    System.out.println("게시글을 등록하였습니다.");
+        if (name.length() == 0) {
+          System.out.println("게시글 등록을 취소합니다.");
+          return;
+        } else {
+          Member member = memberDao.findByName(name);
+
+          if (member == null) {
+            System.out.println("등록된 회원이 아닙니다.");
+            continue;
+          }
+          board.setWriter(member);
+          break;
+        }
+      }
+
+      boardDao.insert(board);
+      System.out.println("게시글을 등록하였습니다.");
+
+    } catch (Exception e) {
+      System.out.println("게시글 등록 중 오류 발생!");
+      e.printStackTrace();
+    }
   }
 }

@@ -23,14 +23,14 @@ repositories {
 }
 
 dependencies {
-    // JSON 라이브러리
-    implementation 'com.google.code.gson:gson:2.8.6'
-
-    // This dependency is used by the application.
-    implementation 'com.google.guava:guava:28.1-jre'
-
-    // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
+  // MariaDB JDBC Driver
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.0'
+  // MS-SQL JDBC Driver
+    implementation 'com.microsoft.sqlserver:mssql-jdbc:8.4.1.jre11'
+  // Oracle JDBC Driver
+    implementation 'com.oracle.database.jdbc:ojdbc10-production:19.8.0.0'
+    implementation 'com.google.guava:guava:29.0-jre'
+    testImplementation 'junit:junit:4.13'
 }
 
 application {
