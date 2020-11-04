@@ -7,7 +7,15 @@ import java.sql.Date;
 import java.util.Scanner;
 
 public class App {
-
+  static class Project {
+    int no;
+    String title;
+    String content;
+    Date startDate;
+    Date endDate;
+    String creator;
+    String member;
+  }
   static class Member {
     int no;
     String name;
@@ -21,7 +29,9 @@ public class App {
   static final int LENGTH = 5;
   static int size = 0;
   static Member[] members = new Member[LENGTH];
+  static Project[] projects = new Project[LENGTH];
   static Scanner in = new Scanner(System.in);
+
   public static void main(String[] args) {
 
     loop:
@@ -31,12 +41,18 @@ public class App {
 
       switch (input) {
         case "/member/add" :
-          System.out.println("[회원 등록]");
           inputMembers();
           break;
         case "/member/list" :
           System.out.println("[회원 목록]");
           printMembers();
+          break;
+        case "/project/add" :
+          inputProjects();
+          break;
+        case "/project/list" :
+          System.out.println("[프로젝트 목록]");
+          printProjects();
           break;
         case "exit" :
         case "quit" :
@@ -48,13 +64,47 @@ public class App {
     }
     in.close();
   }
-  static void inputMembers() {
+  static void inputProjects() {
 
+    for (int i = 0; i < LENGTH; i++) {
+
+    Project project = new Project();
+    System.out.println("[회원 등록]");
+    System.out.print("번호 ? ");
+    project.no = Integer.parseInt(in.nextLine());
+
+    System.out.print("프로젝트명? ");
+    project.title = in.nextLine();
+
+    System.out.print("내용 ? ");
+    project.content = in.nextLine();
+
+    System.out.print("시작일 ? ");
+    project.startDate = Date.valueOf(in.nextLine());
+
+    System.out.print("종료일 ? ");
+    project.endDate = Date.valueOf(in.nextLine());
+
+    System.out.print("만든이 ? ");
+    project.creator = in.nextLine();
+
+    System.out.print("팀원 ? ");
+    project.member = in.nextLine();
+
+    projects[size++] = project;
+    System.out.println("계속 입력하시겠습니까?(Y/n)");
+    String answer = in.nextLine();
+    if (!answer.equalsIgnoreCase("y")) {
+      break;
+      }
+    }
+  }
+  static void inputMembers() {
 
       for (int i = 0; i < LENGTH; i++) {
 
           Member member = new Member();
-
+          System.out.println("[회원 등록]");
           System.out.print("번호? ");
           member.no = Integer.parseInt(in.nextLine());
 
@@ -82,15 +132,22 @@ public class App {
           if (!answer.equalsIgnoreCase("y")) {
             break;
           }
-          System.out.println("빈줄 출력");
+          System.out.println(" ");
         }
-      in.close();
     }
     static void printMembers() {
       for (int i = 0; i < size; i++) {
         Member m = members[i];
         System.out.printf("%d, %s, %s, %s, %s, %s, %s\n", m.no, m.name, m.email, m.password,
             m.picture, m.tel, m.registeredDate);
+      }
+    }
+
+    static void printProjects() {
+      for (int i = 0; i < size; i++) {
+        Project p = projects[i];
+      System.out.printf("%d, %s, %s, %s, %s, %s, %s\n", p.no, p.title, p.content, p.startDate,
+          p.endDate, p.creator, p.member);
       }
     }
 }
