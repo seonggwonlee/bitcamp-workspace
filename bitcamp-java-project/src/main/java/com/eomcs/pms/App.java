@@ -1,5 +1,6 @@
 package com.eomcs.pms;
 
+import java.sql.Connection;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -15,6 +16,10 @@ import com.eomcs.pms.dao.BoardDao;
 import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.dao.TaskDao;
+import com.eomcs.pms.dao.mariadb.BoardDaoImpl;
+import com.eomcs.pms.dao.mariadb.MemberDaoImpl;
+import com.eomcs.pms.dao.mariadb.ProjectDaoImpl;
+import com.eomcs.pms.dao.mariadb.TaskDaoImpl;
 import com.eomcs.pms.handler.BoardAddCommand;
 import com.eomcs.pms.handler.BoardDeleteCommand;
 import com.eomcs.pms.handler.BoardDetailCommand;
@@ -22,6 +27,7 @@ import com.eomcs.pms.handler.BoardListCommand;
 import com.eomcs.pms.handler.BoardUpdateCommand;
 import com.eomcs.pms.handler.Command;
 import com.eomcs.pms.handler.HelloCommand;
+import com.eomcs.pms.handler.LoginCommand;
 import com.eomcs.pms.handler.MemberAddCommand;
 import com.eomcs.pms.handler.MemberDeleteCommand;
 import com.eomcs.pms.handler.MemberDetailCommand;
@@ -83,9 +89,9 @@ public class App {
 
   public static void main(String[] args) throws Exception {
     App app = new App();
-
     // 옵저버 등록
     app.addApplicationContextListener(new AppInitListener());
+
 
     app.service();
   }
@@ -96,10 +102,12 @@ public class App {
 
     Map<String,Command> commandMap = new HashMap<>();
 
-    BoardDao boardDao = new BoardDao();
-    MemberDao memberDao = new MemberDao();
-    ProjectDao projectDao = new ProjectDao();
-    TaskDao taskDao = new TaskDao();
+    Connection con = (Connection) context.get("con");
+
+    BoardDao boardDao = new BoardDaoImpl(con);
+    MemberDao memberDao = new MemberDaoImpl(con);
+    ProjectDao projectDao = new ProjectDaoImpl(con);
+    TaskDao taskDao = new TaskDaoImpl(con);
 
     MemberListCommand memberListCommand = new MemberListCommand(memberDao);
 
@@ -122,12 +130,13 @@ public class App {
     commandMap.put("/project/delete", new ProjectDeleteCommand(projectDao));
 
     commandMap.put("/task/add", new TaskAddCommand(taskDao, projectDao, memberDao));
-    commandMap.put("/task/list", new TaskListCommand());
-    commandMap.put("/task/detail", new TaskDetailCommand());
+    commandMap.put("/task/list", new TaskListCommand(taskDao));
+    commandMap.put("/task/detail", new TaskDetailCommand(taskDao));
     commandMap.put("/task/update", new TaskUpdateCommand(taskDao, projectDao, memberDao));
-    commandMap.put("/task/delete", new TaskDeleteCommand());
+    commandMap.put("/task/delete", new TaskDeleteCommand(taskDao));
 
     commandMap.put("/hello", new HelloCommand());
+    commandMap.put("/login", new LoginCommand(memberDao));
 
     Deque<String> commandStack = new ArrayDeque<>();
     Queue<String> commandQueue = new LinkedList<>();
@@ -155,7 +164,7 @@ public class App {
             if (command != null) {
               try {
                 // 실행 중 오류가 발생할 수 있는 코드는 try 블록 안에 둔다.
-                command.execute();
+                command.execute(context);
               } catch (Exception e) {
                 // 오류가 발생하면 그 정보를 갖고 있는 객체의 클래스 이름을 출력한다.
                 System.out.println("--------------------------------------------------------------");
