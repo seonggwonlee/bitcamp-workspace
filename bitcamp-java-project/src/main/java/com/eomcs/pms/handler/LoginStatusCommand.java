@@ -6,11 +6,11 @@ import com.eomcs.pms.domain.Member;
 import com.eomcs.util.Prompt;
 
 // Command 규칙에 따라 클래스를 정의한다.
-public class LoginCommand implements Command {
+public class LoginStatusCommand implements Command {
 
   MemberDao memberDao;
 
-  public LoginCommand (MemberDao memberDao) {
+  public LoginStatusCommand (MemberDao memberDao) {
     this.memberDao = memberDao;
     // memberDao가 member테이블의 소유 권한을 갖고 있다.
   }
