@@ -19,19 +19,20 @@ public class ProjectDetailCommand implements Command {
 
     try {
       Project project = projectDao.findByNo(no);
-
-      if(project == null) {
+      if (project == null) {
         System.out.println("해당 번호의 프로젝트가 존재하지 않습니다.");
         return;
       }
 
       System.out.printf("프로젝트명: %s\n", project.getTitle());
       System.out.printf("내용: %s\n", project.getContent());
-      System.out.printf("기간: %s ~ %s\n", project.getStartDate(), project.getEndDate());
+      System.out.printf("기간: %s ~ %s\n",
+          project.getStartDate(),
+          project.getEndDate());
       System.out.printf("관리자: %s\n", project.getOwner().getName());
       System.out.print("팀원: ");
-
-      project.getMembers().forEach(member -> System.out.print(member.getName() + ""));
+      project.getMembers().forEach(
+          member -> System.out.print(member.getName() + " "));
       System.out.println();
 
     } catch (Exception e) {

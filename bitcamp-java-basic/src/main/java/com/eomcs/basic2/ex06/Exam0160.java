@@ -16,7 +16,7 @@ public class Exam0160 {
       System.out.println("청소년");
     } else if (age < 65) {
       System.out.println("성인");
-    } else {ㄱ
+    } else {
       System.out.println("노인");
     }
   }
