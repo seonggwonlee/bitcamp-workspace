@@ -78,6 +78,24 @@ public class ProjectDaoImpl implements com.eomcs.pms.dao.ProjectDao {
   }
 
   @Override
+  public List<Project> findByKeyword(String item, String keyword) throws Exception {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      HashMap<String,Object> map = new HashMap<>();
+      map.put("item", item);
+      map.put("keyword", keyword);
+      List<Project> projects = sqlSession.selectList("ProjectDao.findByKeyword", map);
+      return projects;
+    }
+  }
+
+  @Override
+  public List<Project> findByDetailKeyword(Map<String,Object> keywords) throws Exception {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      return sqlSession.selectList("ProjectDao.findByDetailKeyword", keywords);
+    }
+  }
+
+  @Override
   public int update(Project project) throws Exception {
       try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 
