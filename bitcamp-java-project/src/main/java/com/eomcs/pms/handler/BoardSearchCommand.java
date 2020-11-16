@@ -7,6 +7,7 @@ import com.eomcs.pms.domain.Board;
 import com.eomcs.util.Prompt;
 
 public class BoardSearchCommand implements Command {
+
   BoardDao boardDao;
 
   public BoardSearchCommand(BoardDao boardDao) {
@@ -31,9 +32,10 @@ public class BoardSearchCommand implements Command {
             board.getViewCount());
       }
 
+
     } catch (Exception e) {
-      System.out.println("게시글 등록 중 오류 발생!");
+      System.out.println("게시글 검색 중 오류 발생!");
       e.printStackTrace();
-      }
     }
   }
+}

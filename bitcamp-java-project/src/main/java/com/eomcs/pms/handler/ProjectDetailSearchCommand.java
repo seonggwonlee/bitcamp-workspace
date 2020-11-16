@@ -17,10 +17,11 @@ public class ProjectDetailSearchCommand implements Command {
 
   @Override
   public void execute(Map<String,Object> context) {
-    System.out.println("[프로젝트 상세검색]");
+    System.out.println("[프로젝트 상세 검색]");
 
     try {
       HashMap<String,Object> keywords = new HashMap<>();
+
       String title = Prompt.inputString("프로젝트명? ");
       if (title.length() > 0) {
         keywords.put("title", title);
@@ -30,6 +31,7 @@ public class ProjectDetailSearchCommand implements Command {
       if (owner.length() > 0) {
         keywords.put("owner", owner);
       }
+
       String member = Prompt.inputString("팀원명? ");
       if (member.length() > 0) {
         keywords.put("member", member);
@@ -55,10 +57,9 @@ public class ProjectDetailSearchCommand implements Command {
             project.getOwner().getName(),
             members.toString());
       }
-
     } catch (Exception e) {
-      System.out.println("게시글 등록 중 오류 발생!");
+      System.out.println("프로젝트 목록 조회 중 오류 발생!");
       e.printStackTrace();
-      }
     }
   }
+}

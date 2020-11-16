@@ -169,7 +169,7 @@
 	    <when test="item == 'no'">
 	      board_id = #{keyword}
 	    </when>
-	    <when test='item == "title"'>
+	    <when test="item == 'title'">
 	      title like concat('%', #{keyword}, '%')
 	    </when>
 	    <otherwise>
@@ -240,8 +240,18 @@
     from x_board
     <where>
       <foreach collection="noList" item="no">
+        <if test="no != ''">
         or board_id = #{no}
+        </if>
       </foreach>
+      <!-- 자바 코드로 변환시 
+      ArrayList<Object> list = map.get("noList); 
+      for (Object no : list) {
+        if (!no.equals("")) {
+        sql += "or board_id = " + no; 
+        }
+      }
+      -->
     </where>
   </select>
   <select id="select24" resultMap="BoardMap" parameterType="map">

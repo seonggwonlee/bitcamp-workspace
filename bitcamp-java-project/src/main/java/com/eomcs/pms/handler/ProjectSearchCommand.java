@@ -19,7 +19,8 @@ public class ProjectSearchCommand implements Command {
     System.out.println("[프로젝트 검색]");
 
     try {
-      String item = Prompt.inputString("항목(1:프로젝트명, 2:관리자명, 3:팀원, 그 외:전체)? ");
+      String item = Prompt.inputString(
+          "항목(1:프로젝트명, 2:관리자명, 3:팀원, 그 외: 전체)? ");
       String keyword = Prompt.inputString("검색어? ");
 
       List<Project> list = projectDao.findByKeyword(item, keyword);
@@ -42,10 +43,9 @@ public class ProjectSearchCommand implements Command {
             project.getOwner().getName(),
             members.toString());
       }
-
     } catch (Exception e) {
-      System.out.println("게시글 등록 중 오류 발생!");
+      System.out.println("프로젝트 목록 조회 중 오류 발생!");
       e.printStackTrace();
-      }
     }
   }
+}

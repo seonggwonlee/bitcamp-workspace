@@ -18,7 +18,7 @@ public class Exam0110 {
 
     SqlSession sqlSession = factory.openSession();
 
-    Board board = sqlSession.selectOne("BoardMapper.selectBoard", 1);
+    Board board = sqlSession.selectOne("BoardMapper.selectBoard", 18);
 
     System.out.println("[게시글 조회]");
     System.out.printf("번호: %d\n", board.getNo());
