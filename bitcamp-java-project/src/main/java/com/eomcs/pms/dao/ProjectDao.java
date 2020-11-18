@@ -12,4 +12,7 @@ public interface ProjectDao {
   List<Project> findByKeyword(String item, String keyword) throws Exception;
   List<Project> findByDetailKeyword(Map<String,Object> keywords) throws Exception;
   int update(Project project) throws Exception;
+
+  int deleteMembers(int projectNo) throws Exception;
+  int insertMembers(Project project) throws Exception;
 }

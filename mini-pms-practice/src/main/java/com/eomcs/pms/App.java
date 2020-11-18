@@ -3,56 +3,45 @@
  */
 package com.eomcs.pms;
 
-import java.sql.Date;
-import java.util.Scanner;
+import com.eomcs.pms.handler.MemberHandler;
+import com.eomcs.pms.handler.ProjectHandler;
+import com.eomcs.pms.handler.TaskHandler;
+import com.eomcs.pms.util.Prompt;
 
 public class App {
-  static class Project {
-    int no;
-    String title;
-    String content;
-    Date startDate;
-    Date endDate;
-    String creator;
-    String member;
-  }
-  static class Member {
-    int no;
-    String name;
-    String email;
-    String password;
-    String picture;
-    String tel;
-    Date registeredDate = new Date(System.currentTimeMillis());
-  }
-//
-  static final int LENGTH = 5;
-  static int size = 0;
-  static Member[] members = new Member[LENGTH];
-  static Project[] projects = new Project[LENGTH];
-  static Scanner in = new Scanner(System.in);
 
   public static void main(String[] args) {
+    MemberHandler memberHandler = new MemberHandler();
+    ProjectHandler projectHandler = new ProjectHandler();
+    TaskHandler taskHandler = new TaskHandler();
+    Prompt prompt = new Prompt();
 
     loop:
     while (true) {
-      System.out.print("명령> ");
-      String input = in.nextLine();
+
+      String input = prompt.promptString("명령 > ");
 
       switch (input) {
         case "/member/add" :
-          inputMembers();
+          memberHandler.inputMembers();
           break;
         case "/member/list" :
           System.out.println("[회원 목록]");
-          printMembers();
+          memberHandler.printMembers();
           break;
         case "/project/add" :
-          inputProjects();
+          projectHandler.inputProjects();
           break;
         case "/project/list" :
           System.out.println("[프로젝트 목록]");
-          printProjects();
+          projectHandler.printProjects();
+          break;
+        case "/task/add" :
+          taskHandler.inputTasks();
+          break;
+        case "/task/list" :
+          System.out.println("[작업 목록]");
+          taskHandler.printTasks();
           break;
         case "exit" :
         case "quit" :
@@ -62,92 +51,6 @@ public class App {
           System.out.println("실행할 수 없는 명령입니다.");
         }
     }
-    in.close();
+    prompt.close();
   }
-  static void inputProjects() {
-
-    for (int i = 0; i < LENGTH; i++) {
-
-    Project project = new Project();
-    System.out.println("[회원 등록]");
-    System.out.print("번호 ? ");
-    project.no = Integer.parseInt(in.nextLine());
-
-    System.out.print("프로젝트명? ");
-    project.title = in.nextLine();
-
-    System.out.print("내용 ? ");
-    project.content = in.nextLine();
-
-    System.out.print("시작일 ? ");
-    project.startDate = Date.valueOf(in.nextLine());
-
-    System.out.print("종료일 ? ");
-    project.endDate = Date.valueOf(in.nextLine());
-
-    System.out.print("만든이 ? ");
-    project.creator = in.nextLine();
-
-    System.out.print("팀원 ? ");
-    project.member = in.nextLine();
-
-    projects[size++] = project;
-    System.out.println("계속 입력하시겠습니까?(Y/n)");
-    String answer = in.nextLine();
-    if (!answer.equalsIgnoreCase("y")) {
-      break;
-      }
-    }
-  }
-  static void inputMembers() {
-
-      for (int i = 0; i < LENGTH; i++) {
-
-          Member member = new Member();
-          System.out.println("[회원 등록]");
-          System.out.print("번호? ");
-          member.no = Integer.parseInt(in.nextLine());
-
-          System.out.print("이름? ");
-          member.name = in.nextLine();
-
-          System.out.print("이메일? ");
-          member.email = in.nextLine();
-
-          System.out.print("암호? ");
-          member.password = in.nextLine();
-
-          System.out.print("사진? ");
-          member.picture = in.nextLine();
-
-          System.out.print("전화? ");
-          member.tel = in.nextLine();
-
-          member.registeredDate = new Date(System.currentTimeMillis());
-
-          members[size++] = member;
-
-          System.out.print("계속 입력하시겠습니까?(Y/n)");
-          String answer = in.nextLine();
-          if (!answer.equalsIgnoreCase("y")) {
-            break;
-          }
-          System.out.println(" ");
-        }
-    }
-    static void printMembers() {
-      for (int i = 0; i < size; i++) {
-        Member m = members[i];
-        System.out.printf("%d, %s, %s, %s, %s, %s, %s\n", m.no, m.name, m.email, m.password,
-            m.picture, m.tel, m.registeredDate);
-      }
-    }
-
-    static void printProjects() {
-      for (int i = 0; i < size; i++) {
-        Project p = projects[i];
-      System.out.printf("%d, %s, %s, %s, %s, %s, %s\n", p.no, p.title, p.content, p.startDate,
-          p.endDate, p.creator, p.member);
-      }
-    }
 }
