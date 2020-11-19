@@ -29,7 +29,14 @@ public class ProjectHandler {
     project.content = prompt.promptString("내용 ? ");
     project.startDate = prompt.promptDate("시작일 ? ");
     project.endDate = prompt.promptDate("종료일 ? ");
-    project.creator = prompt.promptString("만든이 ? ");
+    while (true) {
+      String name = prompt.promptString("만든이 ? ");
+      if (MemberHandler.findByName(name) != null) {
+        project.creator = name;
+        break;
+      }
+      System.out.println("등록된 회원이 아닙니다.");
+    }
     project.member = prompt.promptString("팀원 ? ");
 
     projects[psize++] = project;
