@@ -19,6 +19,7 @@
       no, 
       name, 
       email, 
+      photo,
       tel, 
       cdt
     from 
