@@ -30,6 +30,7 @@ public class Servlet06 extends GenericServlet {
     // 1) 서로 다른 이름으로 값을 보낼 경우
     // => 예) genre1=on&genre2=on&genre4=on
     // => 다음과 같이 각각의 이름에 대해 값을 꺼내 확인해야 한다.
+    // 체크박스는 체크 후 전송을 눌러야 값이 전송된다. 체크하지 않으면 아무 의미 없다.
     String genre1 = req.getParameter("genre1");
     String genre2 = req.getParameter("genre2");
     String genre3 = req.getParameter("genre3");

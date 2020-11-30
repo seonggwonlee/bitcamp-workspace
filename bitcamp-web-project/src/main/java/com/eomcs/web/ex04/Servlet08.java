@@ -72,10 +72,10 @@ public class Servlet08 extends GenericServlet {
     // Thumbnails.of(this.uploadDir + "/" + filename).size(20, 20).outputFormat("jpg")
     // .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
 
-    Thumbnails.of(this.uploadDir + "/" + filename)//
-        .size(20, 20)//
-        .outputFormat("jpg")//
-        .toFiles(new Rename() {
+    Builder<File> thumbnailBuilder = Thumbnails.of(this.uploadDir + "/" + filename);
+        thumbnailBuilder.size(20, 20);
+        thumbnailBuilder.outputFormat("jpg");
+        thumbnailBuilder.toFiles(new Rename() {
           @Override
           public String apply(String name, ThumbnailParameter param) {
             return name + "_20x20";

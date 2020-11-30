@@ -3,28 +3,27 @@ package com.eomcs.pms.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.pms.domain.Board;
-import com.eomcs.pms.service.BoardService;
+import com.eomcs.pms.domain.Member;
+import com.eomcs.pms.service.MemberService;
 
-@WebServlet("/board/update")
-public class BoardUpdateServlet extends HttpServlet {
+@WebServlet("/project/form")
+public class ProjectAddFormServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-//    request.setCharacterEncoding("UTF-8");
-
     ServletContext ctx = request.getServletContext();
-    BoardService boardService =
-        (BoardService) ctx.getAttribute("boardService");
+    MemberService memberService =
+        (MemberService) ctx.getAttribute("memberService");
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -32,26 +31,29 @@ public class BoardUpdateServlet extends HttpServlet {
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
-    out.println("<meta http-equiv='Refresh' content='1;url=list'>");
-    out.println("<title>게시글변경</title></head>");
+    out.println("<title>프로젝트생성</title></head>");
     out.println("<body>");
     try {
-      out.println("<h1>게시물 변경</h1>");
+      out.println("<h1>프로젝트 생성</h1>");
 
+      out.println("<form action='add' method='post'>");
+      out.println("프로젝트명 : <input type='text' name='title'><br>");
+      out.println("내용 : <textarea name='content' rows='10' cols='60'></textarea><br>");
+      out.println("기간 : <input type='date' name='startDate'> ~ <input type='date' name='endDate'><br>");
+      out.println("팀원 : <br>");
+      out.println("<ul>");
 
-      Board board = new Board();
-      board.setNo(Integer.parseInt(request.getParameter("no")));
-      board.setTitle(request.getParameter("title"));
-      board.setContent(request.getParameter("content"));
-      int count = boardService.update(board);
-
-      if (count == 0) {
-
-        out.println("<p>해당 번호의 게시글이 없습니다.</p>");
-
-      } else {
-        out.println("<p>게시글을 변경하였습니다.</p>");
+      List<Member> members = memberService.list();
+      for (Member m : members) {
+      out.printf("<li><input type='checkbox' "
+          + "name='members' "
+          + "value='%d'>%s</li>\n",
+        m.getNo(),
+        m.getName());
       }
+      out.println("</ul><br>");
+      out.println("<button>생성</button>");
+      out.println("</form>");
 
     } catch (Exception e) {
       out.println("<h2>작업 처리 중 오류 발생!</h2>");
@@ -69,4 +71,3 @@ public class BoardUpdateServlet extends HttpServlet {
     out.println("</html>");
   }
 }
-

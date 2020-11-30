@@ -28,7 +28,7 @@ public class BoardAddServlet extends HttpServlet {
         (BoardService) ctx.getAttribute("boardService");
 
     // 클라이언트가 POST요청시 보낸 데이터 리드한다.
-    request.setCharacterEncoding("UTF-8");
+//    request.setCharacterEncoding("UTF-8");
 
     Board board = new Board();
     board.setTitle(request.getParameter("title"));
