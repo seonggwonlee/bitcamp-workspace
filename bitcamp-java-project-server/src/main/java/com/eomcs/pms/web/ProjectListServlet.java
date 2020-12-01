@@ -39,6 +39,7 @@ public class ProjectListServlet extends HttpServlet {
       out.println("<h1>프로젝트 목록</h1>");
 
       List<Project> list = projectService.list();
+
       out.println("<table border='1'>");
       out.println("<thead><tr>" // table row
           + "<th>번호</th>" // table header
@@ -49,6 +50,7 @@ public class ProjectListServlet extends HttpServlet {
           + "</tr></thead>");
 
       out.println("<tbody>");
+
       for (Project project : list) {
         StringBuilder members = new StringBuilder();
         for (Member member : project.getMembers()) {

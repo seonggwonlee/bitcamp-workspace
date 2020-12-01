@@ -10,6 +10,7 @@ public class Member {
   private String photo;
   private String tel;
   private Date registeredDate;
+  private int state;
 
   public int getNo() {
     return no;
@@ -64,5 +65,11 @@ public class Member {
     Member m5 = new Member().setNo(100).setName("홍길동");
     System.out.println(m5.getNo());
     System.out.println(m5.getName());
+  }
+  public int getState() {
+    return state;
+  }
+  public void setState(int state) {
+    this.state = state;
   }
 }
