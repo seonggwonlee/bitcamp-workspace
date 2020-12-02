@@ -21,14 +21,14 @@ public class CharacterEncodingFilter implements Filter {
   public void doFilter(
       ServletRequest request,
       ServletResponse response,
-      FilterChain chain)  throws IOException, ServletException {
-    // 다음 필터나 서블릿 실행 전
-    // 요청 파라미터의 값이 UTF-8로 인코딩 되었음을 알린다.
+      FilterChain chain)
+          throws IOException, ServletException {
 
-    request.setCharacterEncoding("UTF-8");
+    // 다음 필터나 서블릿을 실행하기 전에
+    // 요청 파라미터의 값이 UTF-8 로 인코딩 되었음을 알린다.
+    request.setCharacterEncoding(config.getInitParameter("encoding"));
 
+    // 다음 필터 또는 서블릿을 실행한다.
     chain.doFilter(request, response);
   }
-
-
 }

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 //        @WebInitParam(name = "jdbc.url", value = "jdbc:mariadb://localhost/studydb"),
 //        @WebInitParam(name = "jdbc.username", value = "study"),
 //        @WebInitParam(name = "jdbc.password", value = "1111")})
-//@SuppressWarnings("serial")
+@SuppressWarnings("serial")
 public class Servlet03 extends HttpServlet {
 
   // @Override

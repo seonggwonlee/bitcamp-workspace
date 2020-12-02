@@ -15,6 +15,7 @@ import com.eomcs.pms.service.MemberService;
 
 @WebServlet("/member/list")
 public class MemberListServlet extends HttpServlet {
+  private static final long serialVersionUID = 1L;
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,6 +38,7 @@ public class MemberListServlet extends HttpServlet {
       out.println("<a href='form.html'>새 회원</a><br>");
 
       List<Member> list = memberService.list();
+
       out.println("<table border='1'>");
       out.println("<thead><tr>" // table row
           + "<th>번호</th>" // table header
@@ -47,10 +49,11 @@ public class MemberListServlet extends HttpServlet {
           + "</tr></thead>");
 
       out.println("<tbody>");
+
       for (Member member : list) {
         out.printf("<tr>"
             + "<td>%d</td>"
-            + "<td><a href='detail?no=%1$d'><img src='../upload/%s' alt='[%2$s]' height='30px'>%s</a></td>"
+            + "<td><a href='detail?no=%1$d'><img src='../upload/%s_30x30.jpg' alt='[%2$s]'>%s</a></td>"
             + "<td>%s</td>"
             + "<td>%s</td>"
             + "<td>%s</td>"
@@ -66,13 +69,15 @@ public class MemberListServlet extends HttpServlet {
       out.println("</table>");
 
     } catch (Exception e) {
-      out.printf("<p>작업 처리 중 오류 발생! - %s</p>\n", e.getMessage());
+      out.println("<h2>작업 처리 중 오류 발생!</h2>");
+      out.printf("<pre>%s</pre>\n", e.getMessage());
 
       StringWriter errOut = new StringWriter();
       e.printStackTrace(new PrintWriter(errOut));
-
+      out.println("<h3>상세 오류 내용</h3>");
       out.printf("<pre>%s</pre>\n", errOut.toString());
     }
+
     out.println("</body>");
     out.println("</html>");
   }

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import com.eomcs.pms.domain.Member;
 
 @WebServlet("/auth/logout")
-// Command 규칙에 따라 클래스를 정의한다.
 public class LogoutServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -19,9 +18,10 @@ public class LogoutServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    // 클라이언트 전용 보관소(HttpSession)를 준비한다.
     HttpSession session = request.getSession();
 
-
+    // 클라이언트로 데이터를 출력할 때 사용할 스트림 준비
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
 
@@ -30,16 +30,17 @@ public class LogoutServlet extends HttpServlet {
     out.println("<head><title>로그아웃</title></head>");
     out.println("<body>");
 
-      out.println("<h1>로그아웃</h1>");
+    out.println("<h1>로그아웃</h1>");
 
     Member loginUser = (Member) session.getAttribute("loginUser");
     if (loginUser == null) {
       out.println("<p>로그인 된 상태가 아닙니다!</p>");
 
     } else {
-    out.printf("<p>%s 님 안녕히 가세요!</p>\n", loginUser.getName());
-    session.invalidate(); // 로그아웃을 요청한 클라이언트의 세션을 무효화시킨다.
+      out.printf("<p>%s 님 안녕히 가세요!</p>\n", loginUser.getName());
+      session.invalidate(); // 로그아웃을 요청한 클라이언트의 세션을 무효화시킨다.
     }
+
     out.println("</body></html>");
   }
 }

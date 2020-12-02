@@ -37,6 +37,13 @@ public class Servlet01 extends HttpServlet {
     response.setContentType("text/plain;charset=UTF-8");
     PrintWriter out = response.getWriter();
 
+    // 서블릿의 PrintWriter 객체를 통해 값을 출력하면
+    // 클라이언트로 바로 출력되는 것이 아니라, 내부에 마련된 버퍼로 출력된다.
+    // service()메서드 호출이 끝났을 때 버퍼의 내용이 클라이언트로 출력된다.
+    // 만약 버퍼가 꽉 차면 service()메서드 호출 전 자동으로 출력된다.
+
+    // 따라서 다음 출력코드는 버퍼로 값을 출력한 것이다. (클라이언트로 값을 보낸 상태가 아님)
+
     out.println("더하기 계산 결과:");
 
     String op = request.getParameter("op");
@@ -45,16 +52,17 @@ public class Servlet01 extends HttpServlet {
       // => 요청을 다른 서블릿으로 전달할 수 있다.
       // 요청배달자 = request.getRequestDispatcher(다른 서블릿 URL);
       RequestDispatcher 요청배달자 = request.getRequestDispatcher("/ex07/s2");
+      // 컨텍스트 루트
 
       // 이 서블릿이 지금까지 출력한 것은 모두 취소된다.
       // => 엥! 출력된 것이 최소될 수 있나요?
       // => PrintWriter 객체를 통해 출력하는 내용은 즉시 웹 브라우저로 전달되는 것이 아니다.
-      // 내부 출력 버퍼(보통 8KB 크기)에 보관된다.
+      //    내부 출력 버퍼(보통 8KB 크기)에 보관된다.
       // => 서블릿의 service() 메서드 호출이 종료될 때 비로서 버퍼의 내용이
-      // 웹 브라우저로 전송된다.
+      //    웹 브라우저로 전송된다.
       // => 물론 그 전에 버퍼가 꽉 차면 자동으로 출력된다.
       // => 그래서 다른 서블릿으로 실행을 위임하기 전에
-      // 이 서블릿이 출력한 내용을 취소할 수 있는 것이다.
+      //    이 서블릿이 출력한 내용을 취소할 수 있는 것이다.
       요청배달자.forward(request, response);
 
       System.out.println("ex07/Servlet01!!!");

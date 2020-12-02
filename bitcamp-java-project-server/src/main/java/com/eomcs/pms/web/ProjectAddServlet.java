@@ -35,9 +35,10 @@ public class ProjectAddServlet extends HttpServlet {
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
-//    out.println("<meta http-equiv='Refresh' content='1;url=list'>");
+    out.println("<meta http-equiv='Refresh' content='1;url=list'>");
     out.println("<title>프로젝트생성</title></head>");
     out.println("<body>");
+
     try {
       out.println("<h1>프로젝트 생성</h1>");
 
@@ -56,12 +57,16 @@ public class ProjectAddServlet extends HttpServlet {
       String[] memberNoList = request.getParameterValues("members");
       if (memberNoList != null) {
         for (String memberNo : memberNoList) {
+          //          Member member = new Member();
+          //          member.setNo(Integer.parseInt(memberNo));
+          //          members.add(member);
           members.add(new Member().setNo(Integer.parseInt(memberNo)));
         }
       }
       project.setMembers(members);
 
       projectService.add(project);
+
       out.println("<p>프로젝트가 등록되었습니다!</p>");
 
     } catch (Exception e) {
@@ -70,9 +75,7 @@ public class ProjectAddServlet extends HttpServlet {
 
       StringWriter errOut = new StringWriter();
       e.printStackTrace(new PrintWriter(errOut));
-      out.println("<h3>상세오류내용</h3>");
-      out.printf("<pre>%s</pre>\n", errOut.toString());
-
+      out.println("<h3>상세 오류 내용</h3>");
       out.printf("<pre>%s</pre>\n", errOut.toString());
     }
 

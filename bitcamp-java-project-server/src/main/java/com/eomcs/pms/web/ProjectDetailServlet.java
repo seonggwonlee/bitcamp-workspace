@@ -55,7 +55,7 @@ public class ProjectDetailServlet extends HttpServlet {
             project.getNo());
         out.printf("프로젝트명: <input type='text' name='title' value='%s'><br>\n",
             project.getTitle());
-        out.printf("내용: <textarea rows='10' cols='70' name='content'>%s</textarea><br>\n",
+        out.printf("내용: <textarea name='content' rows='10' cols='70'>%s</textarea><br>\n",
             project.getContent());
         out.printf("기간: <input type='date' name='startDate' value='%s'> ~ "
             + "<input type='date' name='endDate' value='%s'><br>\n",
@@ -82,11 +82,10 @@ public class ProjectDetailServlet extends HttpServlet {
 
         out.println("작업:<br>");
 
-        out.printf("<a href='../task/addForm?projectNo=%d'>새 작업</a><br>\n",
+        out.printf("<a href='../task/add?projectNo=%d'>새 작업</a><br>\n",
             project.getNo());
 
         List<Task> tasks = taskService.listByProject(no);
-
         out.println("<table border='1'>");
         out.println("<thead><tr>"
             + "<th>번호</th>"
