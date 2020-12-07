@@ -20,7 +20,7 @@
      - type으로 제네릭을 표현하고 class로 객체를 생성할 클래스를 지정하라! 
      --%>
 <jsp:useBean id="list"
-    type="java.util.List<String>"
+    type="java.util.ArrayList<String>"
     class="java.util.ArrayList" scope="page"/>
 <%-- 자바코드로 표현해보면,
   java.util.List<String> list = 
@@ -39,7 +39,13 @@ list.add("임꺽정");
 list.add("유관순");
 list.add("안중근");
 
-for (String n : list) {
+// ArrayList에 제네릭 적용하지 않으면
+// 다음과 같이 어떤 타입의 객체라도 저장할 수 있다.
+// => jsp:useBean 태그에서 Type 속성을 설정하면 제네릭 사용할 수 있다.
+list.add(new Integer(100));
+list.add(new com.eomcs.web.vo.Board());
+
+for (Object n : list) {
   out.println(n + "<br>");
 }
 %>

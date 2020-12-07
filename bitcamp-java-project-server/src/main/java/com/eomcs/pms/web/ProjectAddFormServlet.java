@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.eomcs.pms.domain.Member;
-import com.eomcs.pms.service.MemberService;
+import com.eomcs.pms.service.ProjectService;
 
 @WebServlet("/project/form")
 public class ProjectAddFormServlet extends HttpServlet {
@@ -22,8 +22,8 @@ public class ProjectAddFormServlet extends HttpServlet {
       throws ServletException, IOException {
 
     ServletContext ctx = request.getServletContext();
-    MemberService memberService =
-        (MemberService) ctx.getAttribute("memberService");
+    ProjectService projectService =
+        (ProjectService) ctx.getAttribute("projectService");
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -31,9 +31,9 @@ public class ProjectAddFormServlet extends HttpServlet {
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
-    out.println("<title>프로젝트생성</title></head>");
+    out.println("<title>상점등록</title></head>");
     out.println("<body>");
-    request.getRequestDispatcher("/header").include(request, response);
+//    request.getRequestDispatcher("/header").include(request, response);
     try {
       out.println("<h1>프로젝트 생성</h1>");
 
