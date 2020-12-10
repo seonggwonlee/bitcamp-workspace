@@ -1,20 +1,6 @@
-<%@page import="com.eomcs.pms.domain.Member"%>
-<%@page import="com.eomcs.pms.domain.Project"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%!
-private String getMembersString(List<Member> list) {
-  StringBuilder members = new StringBuilder();
-  for (Member member : list) {
-    if (members.length() > 0) {
-      members.append(",");
-    }
-    members.append(member.getName());
-  }
-  return members.toString();
-}
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,10 +11,6 @@ private String getMembersString(List<Member> list) {
 
 <h1>프로젝트 목록(JSP+EL+JSTL)</h1>
 <a href='form'>새 프로젝트</a><br>
-
-<%
-List<Project> list = (List<Project>) request.getAttribute("list");
-%>
 
 <table border='1'>
 <thead>
@@ -49,11 +31,12 @@ List<Project> list = (List<Project>) request.getAttribute("list");
   <td>${p.startDate} ~ ${p.endDate}</td>
   <td>${p.owner.name}</td>
   <td>[
-    <c:forEach items="${p.members}" var="m"> 
-    <c:if test="${m.status == 1}"> ${m.name},
+  <c:forEach items="${p.members}" var="m">
+    <c:if test="${m.state == 1}">
+      ${m.name},
     </c:if>
-  </c:forEach>]
-</td>
+  </c:forEach>
+  ]</td>
 </tr>
 </c:forEach>
 </tbody>

@@ -1,7 +1,6 @@
 package com.eomcs.pms.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,11 +19,12 @@ public class LoginServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
-    // 웹 브라우저가 쿠키로 이메일을 보냈으면 꺼낸다.
+    System.out.println("LoginServlet 실행!");
+    // 웹브라우저가 쿠키로 이메일을 보냈으면 꺼낸다.
     String email = "";
+
     Cookie[] cookies = request.getCookies();
-    if(cookies != null) {
+    if (cookies != null) {
       for (Cookie cookie : cookies) {
         if (cookie.getName().equals("email")) {
           email = cookie.getValue();
@@ -32,25 +32,10 @@ public class LoginServlet extends HttpServlet {
         }
       }
     }
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
 
-    out.println("<!DOCTYPE html>");
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<meta charset='UTF-8'>");
-    out.println("<title>로그인</title>");
-    out.println("</head>");
-    out.println("<body>");
-    out.println("<h1>로그인</h1>");
-    out.println("<form action='login' method='post'>");
-    out.printf("이메일: <input type='email' name='email' value='%s'><br>\n", email);
-    out.println("암호: <input type='password' name='password'><br>");
-    out.println("<input type='checkbox' name='saveEmail'> 이메일 저장<br>");
-    out.println("<button>로그인</button>");
-    out.println("</form>");
-    out.println("</body>");
-    out.println("</html>");
+    response.setContentType("text/html;charset=UTF-8");
+    request.setAttribute("email", email);
+    request.setAttribute("viewName", "/auth/form.jsp");
   }
 
   @Override
@@ -62,16 +47,8 @@ public class LoginServlet extends HttpServlet {
 
     // 클라이언트로 데이터를 출력할 때 사용할 스트림 준비
     response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-
-    out.println("<!DOCTYPE html>");
-    out.println("<html>");
-    out.println("<head><title>로그인</title></head>");
-    out.println("<body>");
 
     try {
-      out.println("<h1>로그인</h1>");
-
       // 클라이언트가 보낸 데이터를 꺼낸다.
       String email = request.getParameter("email");
       String password = request.getParameter("password");
@@ -80,53 +57,35 @@ public class LoginServlet extends HttpServlet {
       Cookie emailCookie = new Cookie("email", email);
 
       if (request.getParameter("saveEmail") != null) {
-        // => 해당 쿠키는 로그인폼에서만 사용할 것이기 때문에 사용범위를 현재 서블릿으로 한정한다.
-        // => 사용범위는 지정하지 않으면 자동으로 현재 URL로 한정되기 때문에 따로 지정할 필욘 없다.
-        // => 대신 웹브라우저 종료나 PC의 종료에도 유지되어야 하기 때문에 유효기간을 설정한다.
+        // => 이 쿠키는 로그인폼에서만 사용할 것이기 때문에
+        //    사용 범위를 현재 서블릿의 URL에 한정한다.
+        // => 사용 범위를 지정하지 않으면 자동으로 현재 URL에 한정된다.
+        //    즉 사용범위를 지정할 필요가 없다.
+        // => 대신 웹브라우저를 종료하거나 컴퓨터를 종료한 후에서 유지해야 하기 때문에
+        //    유효기간을 설정한다.
         emailCookie.setMaxAge(60 * 60 * 24 * 7);
       } else {
-        emailCookie.setMaxAge(0);
-        // 지울 때도 쿠키를 보내지만 유효기간을 0으로 설정한다.
+        emailCookie.setMaxAge(0); // 유효기간이 0이면 삭제하라는 의미다.
       }
+
       // 응답헤더에 email 쿠키를 포함시킨다.
       response.addCookie(emailCookie);
 
-      if (session.getAttribute("loginUser") != null) {
-        out.println("<p>로그인 된 상태입니다.</p>");
+      // 서블릿이 로그인 작업에 사용할 도구를 준비한다.
+      ServletContext ctx = request.getServletContext();
+      MemberService memberService = (MemberService) ctx.getAttribute("memberService");
 
-      } else {
-        // 서블릿이 로그인 작업에 사용할 도구를 준비한다.
-        ServletContext ctx = request.getServletContext();
-        MemberService memberService = (MemberService) ctx.getAttribute("memberService");
-
-        Member member = memberService.get(email, password);
-        if (member == null) {
-          out.println("<p>사용자 정보가 맞지 않습니다.</p>");
-
-        } else {
-          session.setAttribute("loginUser", member);
-          // 로그인이 성공했으면 메인 화면으로 이동한다.
-          // => forward
-          //    로그인 결과가 메인 화면인가?
-          //    아니다. 이런 경우에는 forward는 옳지 않다.
-          //    refresh나 redirect를 써야 한다.
-//          request.getRequestDispatcher("/index.html").forward(request, response);
-//          return;
-
-          // 실행 목적이 다를 때에는 refresh나 redirect를 통해 새 요청을 하도록 만들어야 한다.
-          response.sendRedirect("../index.html");
-          return;
-        }
+      Member member = memberService.get(email, password);
+      if (member == null) {
+        request.setAttribute("viewName", "/auth/loginError.jsp");
+        return;
       }
+
+      session.setAttribute("loginUser", member);
+      request.setAttribute("redirect", "../index.html");
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
-      request.getRequestDispatcher("/error").forward(request, response);
-      return;
     }
-
-    out.println("</body>");
-    out.println("</html>");
-    response.setHeader("Refresh", "1;url=../index.html");
   }
 }
